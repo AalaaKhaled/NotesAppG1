@@ -34,4 +34,6 @@ public interface NotesDao {
 
     @Query("select *  from Note")
     List<Note> getAllNotes();
+    @Query("select * from Note where id = :id")
+    Note searchNoteByID(int id);
 }

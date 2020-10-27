@@ -1,5 +1,6 @@
 package com.route.NotesApp.base;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -32,15 +33,22 @@ public class BaseActivity extends AppCompatActivity {
         });
         builder.show();
     }
+    public AlertDialog showMessage(String message, String posActionName,
+                                   DialogInterface.OnClickListener onClickListener,
+                                   boolean isCancelable){
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setPositiveButton(posActionName,onClickListener );
+        builder.setCancelable(isCancelable);
+        return builder.show();
+    }
+
     public void showMessage(String message,String posActionname,
-                            DialogInterface.OnClickListener posAction
-            ,boolean isCancelable){
+                            DialogInterface.OnClickListener posAction){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
         builder.setMessage(message);
         builder.setPositiveButton(posActionname,posAction);
-        builder.setCancelable(isCancelable);
         builder.show();
-
     }
     public void showMessage(int messageId,int posActionStringId){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
@@ -54,12 +62,33 @@ public class BaseActivity extends AppCompatActivity {
         builder.show();
     }
     public void showMessage(int message,int posActionname,
-                            DialogInterface.OnClickListener posAction
-    ,boolean isCancelable){
+                            DialogInterface.OnClickListener posAction){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
         builder.setMessage(message);
         builder.setPositiveButton(posActionname,posAction);
-        builder.setCancelable(isCancelable);
         builder.show();
+    }
+
+    public AlertDialog showMessage(String message, String posActionName,
+                                   DialogInterface.OnClickListener onClickListenerPos,
+                                   boolean isCancelable , String neutral , DialogInterface.OnClickListener onClickListenerNeu){
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setPositiveButton(posActionName,onClickListenerPos );
+        builder.setNeutralButton(neutral,onClickListenerNeu);
+        builder.setCancelable(isCancelable);
+        return builder.show();
+    }
+
+
+    ProgressDialog progressDialog;
+    public void showProgressDialog(int messageId){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(messageId));
+        progressDialog.show();
+    }
+    public void hideProgressDialog(){
+        if(progressDialog!=null&&progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 }
